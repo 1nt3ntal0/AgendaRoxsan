@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Agenda.Views.SemanaPage"
+             Title="Resumen Semanal">
+
+    <Grid RowDefinitions="0.1*, 0.8*, 0.1*"
+          ColumnDefinitions="*,*,*,*">
+
+        <!-- Fila superior (10%) - Encabezado -->
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                 Color="#6A0DAD"/>
+
+        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+               Text="Resumen Semanal"
+               TextColor="White"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!-- Fila central (80%) - Resumen de servicios -->
+        <RefreshView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                     Command="{Binding CargarResumenCommand}">
+            <CollectionView x:Name="ResumenCollection"
+                           EmptyView="No hay servicios registrados esta semana">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="#6A0DAD"
+                               CornerRadius="10"
+                               Padding="15"
+                               Margin="5">
+                            <Grid ColumnDefinitions="*,Auto">
+                                <Label Text="{Binding Servicio}"
+                                       FontSize="Medium"
+                                       TextColor="#6A0DAD"/>
+                                <Label Grid.Column="1"
+                                       Text="{Binding Cantidad, StringFormat='{0} servicios'}"
+                                       FontSize="Medium"
+                                       FontAttributes="Bold"
+                                       TextColor="#6A0DAD"/>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Fila inferior (10%) - Menú de navegación -->
+        <!-- Hoy -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="0"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="schedule.png"
+                    Clicked="OnHoyClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Hoy"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Agendar -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="1"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="calendar.png"
+                    Clicked="OnAgendarClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Agendar"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Semana -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="2"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="list.png"
+                    Clicked="OnSemanaClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Semana"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Menú -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="3"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="warehouse.png"
+                    Clicked="OnMenuClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Menú"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

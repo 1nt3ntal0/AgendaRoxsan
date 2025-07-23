@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Agenda.Views"
+             x:Class="Agenda.Views.InventarioPage"
+             Title="Inventario (Uso)">
+
+    <Grid RowDefinitions="0.1*, 0.8*, 0.1*"
+          ColumnDefinitions="*,*,*,*">
+
+        <!-- Fila superior (10%) - Morado fuerte -->
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                 Color="#6A0DAD"/>
+
+        <!-- Logo centrado -->
+        <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+               Source="logo.png"
+               Aspect="AspectFit"
+               HeightRequest="80"
+               WidthRequest="80"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!-- Fila central (80%) - Lista de productos -->
+        <RefreshView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                     Command="{Binding CargarProductosCommand}">
+            <CollectionView x:Name="ProductosCollection"
+                            EmptyView="No hay productos de uso en el inventario">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10"
+                              ColumnDefinitions="Auto, *, Auto, Auto">
+                            <!-- Imagen del producto -->
+                            <Image Grid.Column="0"
+                                   Source="{Binding Foto}"
+                                   Aspect="AspectFill"
+                                   HeightRequest="60"
+                                   WidthRequest="60"
+                                   VerticalOptions="Center"/>
+
+                            <!-- Detalles del producto -->
+                            <StackLayout Grid.Column="1" Spacing="5">
+                                <Label Text="{Binding Nombre}" 
+                                       FontSize="Medium"/>
+                                <Label Text="{Binding Marca}" 
+                                       FontSize="Small"/>
+                                <Label Text="{Binding Cantidad, StringFormat='Cantidad: {0}'}" 
+                                       FontSize="Small"/>
+                                <Label Text="{Binding Costo, StringFormat='Costo: ${0}'}" 
+                                       FontSize="Small"
+                                       IsVisible="{Binding MostrarPrecios}"/>
+                            </StackLayout>
+
+                            <!-- Botones de acción -->
+                            <Button Grid.Column="2"
+                                    Text="Editar"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:InventarioPage}}, Path=BindingContext.EditarProductoCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="Blue"/>
+                            <Button Grid.Column="3"
+                                    Text="Eliminar"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:InventarioPage}}, Path=BindingContext.EliminarProductoCommand}"
+                                    CommandParameter="{Binding .}"
+                                    BackgroundColor="Transparent"
+                                    TextColor="Red"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Fila inferior (10%) - Menú de navegación -->
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+              ColumnDefinitions="*,*,*,*"
+              BackgroundColor="#6A0DAD">
+
+            <!-- Inventario Uso (activo) -->
+            <VerticalStackLayout Grid.Column="0"
+                                 Spacing="2"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand">
+                <Button ImageSource="warehouse_white.png"
+                        Clicked="OnCargarClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        HeightRequest="30"
+                        WidthRequest="30"/>
+                <Label Text="Inventario"
+                       TextColor="White"
+                       FontSize="Small"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Inventario Venta -->
+            <VerticalStackLayout Grid.Column="1"
+                                 Spacing="2"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand">
+                <Button ImageSource="shopping.png"
+                        Clicked="OnVentaClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        HeightRequest="30"
+                        WidthRequest="30"/>
+                <Label Text="Productos Venta"
+                       TextColor="White"
+                       FontSize="Small"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Agregar Producto -->
+            <VerticalStackLayout Grid.Column="2"
+                                 Spacing="2"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand">
+                <Button ImageSource="plus.png"
+                        Clicked="OnAgregarClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        HeightRequest="30"
+                        WidthRequest="30"/>
+                <Label Text="Agregar"
+                       TextColor="White"
+                       FontSize="Small"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <!-- Menú Principal -->
+            <VerticalStackLayout Grid.Column="3"
+                                 Spacing="2"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand">
+                <Button ImageSource="menu.png"
+                        Clicked="OnMenuClicked"
+                        BackgroundColor="Transparent"
+                        BorderColor="Transparent"
+                        HeightRequest="30"
+                        WidthRequest="30"/>
+                <Label Text="Menú"
+                       TextColor="White"
+                       FontSize="Small"
+                       HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

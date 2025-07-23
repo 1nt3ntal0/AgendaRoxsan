@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Agenda.MainPage">
+
+
+    <Grid RowDefinitions="Auto,*,Auto"
+          ColumnDefinitions="*"
+          Padding="20"
+          RowSpacing="20"
+          BackgroundColor="#6A0DAD">
+
+        <!-- Logo en la parte superior -->
+        <Image Source="logo.png"
+               Grid.Row="0"
+               HorizontalOptions="Center"
+               HeightRequest="100"/>
+
+        <!-- Contenedor de botones en el centro -->
+        <VerticalStackLayout Grid.Row="1"
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             Spacing="30">
+
+            <HorizontalStackLayout Spacing="20">
+                <!-- Botón 1 - Citas -->
+                <VerticalStackLayout Spacing="10"
+                                     HorizontalOptions="Center"
+                                     BackgroundColor="#630A6D">
+                    <Button ImageSource="schedule.png" 
+                            Clicked="OpenShedulePage_Clicked"
+                            BackgroundColor="Transparent"
+                            WidthRequest="100"
+                            HeightRequest="100"/>
+                    <Label Text="Citas"
+                           HorizontalOptions="Center"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+
+                <!-- Botón 2 - Inventario -->
+                <VerticalStackLayout Spacing="10"
+                                     HorizontalOptions="Center">
+                    <Button ImageSource="warehouse.png"
+                            BackgroundColor="Transparent"
+                            Clicked="OpenWarehousePage_Clicked"
+                            WidthRequest="100"
+                            HeightRequest="100"/>
+                    <Label Text="Inventario"
+                           HorizontalOptions="Center"
+                           FontSize="16"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+
+        <!-- Pie de página si es necesario -->
+        <!-- <Label Grid.Row="2" Text="© 2023 TuApp" HorizontalOptions="Center"/> -->
+    </Grid>
+
+</ContentPage>

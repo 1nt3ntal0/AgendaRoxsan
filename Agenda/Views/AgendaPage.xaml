@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Agenda.Views"
+             x:Class="Agenda.Views.AgendaPage"
+             Title="Agenda del Día">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:CompletadaColorConverter x:Key="CompletadaColorConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="0.1*, 0.8*, 0.1*"
+          ColumnDefinitions="*,*,*,*">
+
+        <!-- Fila superior (10%) - Morado fuerte -->
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                 Color="#6A0DAD"/>
+
+        <!-- Logo centrado -->
+        <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+               Source="logo.png"
+               Aspect="AspectFit"
+               HeightRequest="80"
+               WidthRequest="80"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!-- Fila central (80%) - Lista de citas -->
+        <RefreshView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                     Command="{Binding LoadCitasCommand}"
+                     BackgroundColor="Black"
+                     >
+            <CollectionView x:Name="CitasCollection"
+                            SelectionMode="Single"
+                            SelectionChanged="OnCitaSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10" 
+                              ColumnDefinitions="Auto, *, Auto, Auto, Auto">
+                            <!-- Checkbox completada -->
+                            <CheckBox Grid.Column="0"
+                                      IsChecked="{Binding Completada}"
+                                      CheckedChanged="OnCompletadaChanged"
+                                      VerticalOptions="Center"/>
+
+                            <!-- Detalles de la cita -->
+                            <StackLayout Grid.Column="1" Spacing="5">
+                                <Label Text="{Binding Nombre}" 
+                                       FontSize="Medium"
+                                       TextColor="{Binding Completada, 
+                                       Converter={StaticResource CompletadaColorConverter}}"/>
+                                <Label Text="{Binding Servicio}" 
+                                       FontSize="Small"
+                                       TextColor="{Binding Completada, 
+                                       Converter={StaticResource CompletadaColorConverter}}"/>
+                                <Label Text="{Binding Hora, StringFormat='{0:hh\\:mm}'}" 
+                                       FontSize="Small"
+                                       TextColor="{Binding Completada, 
+                                       Converter={StaticResource CompletadaColorConverter}}"/>
+                            </StackLayout>
+
+                            <!-- Botones de acción -->
+                            <Button Grid.Column="2"
+                                    Text="Editar"
+                                    Clicked="OnEditarClicked"
+                                    BackgroundColor="Transparent"
+                                    TextColor="Blue"/>
+                            <Button Grid.Column="3"
+                                    Text="Eliminar"
+                                    Clicked="OnEliminarClicked"
+                                    BackgroundColor="Transparent"
+                                    TextColor="Red"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <!-- Fila inferior (10%) - Menú de navegación -->
+        <!-- Hoy -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="0"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="schedule.png"
+                    Clicked="OnHoyClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="24"
+                    WidthRequest="24"/>
+            <Label Text="Hoy"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Agendar -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="1"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="calendar.png"
+                    Clicked="OnAgendarClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="24"
+                    WidthRequest="24"/>
+            <Label Text="Agendar"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Semana -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="2"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="list.png"
+                    Clicked="OnSemanaClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="24"
+                    WidthRequest="24"/>
+            <Label Text="Semana"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Menú -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="3"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="warehouse.png"
+                    Clicked="OnMenuClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="24"
+                    WidthRequest="24"/>
+            <Label Text="Menú"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

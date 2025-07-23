@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Agenda.Views.AgendarPage"
+             Title="Agendar Cita">
+
+    <Grid RowDefinitions="0.1*, 0.8*, 0.1*"
+          ColumnDefinitions="*,*,*,*">
+
+        <!-- Fila superior (10%) - Encabezado -->
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                 Color="#6A0DAD"/>
+
+        <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+               Source="logo.png"
+               Aspect="AspectFit"
+               HeightRequest="80"
+               WidthRequest="80"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!-- Fila central (80%) - Formulario de agendamiento -->
+        <ScrollView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+            <StackLayout Padding="20" Spacing="15">
+                <!-- Campo Nombre -->
+                <Frame BorderColor="#6A0DAD" CornerRadius="10">
+                    <StackLayout Spacing="5">
+                        <Label Text="Nombre del Cliente" 
+                               FontSize="Small"
+                               TextColor="#6A0DAD"/>
+                        <Entry Text="{Binding Nombre}"
+                               Placeholder="Ingrese el nombre"
+                               ClearButtonVisibility="WhileEditing"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Campo Servicio -->
+                <Frame BorderColor="#6A0DAD" CornerRadius="10">
+                    <StackLayout Spacing="5">
+                        <Label Text="Servicio" 
+                               FontSize="Small"
+                               TextColor="#6A0DAD"/>
+                        <Picker Title="Seleccione un servicio"
+                                ItemsSource="{Binding ServiciosDisponibles}"
+                                SelectedItem="{Binding Servicio}"
+                                ItemDisplayBinding="{Binding .}"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Campo Fecha -->
+                <Frame BorderColor="#6A0DAD" CornerRadius="10">
+                    <StackLayout Spacing="5">
+                        <Label Text="Fecha" 
+                               FontSize="Small"
+                               TextColor="#6A0DAD"/>
+                        <DatePicker Date="{Binding Dia}"
+                                    MinimumDate="{Binding FechaMinima}"
+                                    MaximumDate="{Binding FechaMaxima}"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Campo Hora -->
+                <Frame BorderColor="#6A0DAD" CornerRadius="10">
+                    <StackLayout Spacing="5">
+                        <Label Text="Hora" 
+                               FontSize="Small"
+                               TextColor="#6A0DAD"/>
+                        <TimePicker Time="{Binding Hora}"
+                                    Format="HH:mm"/>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Botón Guardar -->
+                <Button Text="Guardar Cita"
+                        Command="{Binding GuardarCitaCommand}"
+                        BackgroundColor="#6A0DAD"
+                        TextColor="White"
+                        CornerRadius="10"
+                        HeightRequest="50"/>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Fila inferior (10%) - Menú de navegación -->
+        <!-- Hoy -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="0"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="schedule.png"
+                    Clicked="OnHoyClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Hoy"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Agendar -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="1"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="calendar.png"
+                    Clicked="OnAgendarClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Agendar"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Semana -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="2"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="list.png"
+                    Clicked="OnSemanaClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Semana"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+
+        <!-- Menú -->
+        <VerticalStackLayout Grid.Row="2" Grid.Column="3"
+                             Spacing="2"
+                             BackgroundColor="#6A0DAD"
+                             HorizontalOptions="FillAndExpand"
+                             VerticalOptions="FillAndExpand">
+            <Button ImageSource="warehouse.png"
+                    Clicked="OnMenuClicked"
+                    BackgroundColor="Transparent"
+                    BorderColor="Transparent"
+                    HeightRequest="30"
+                    WidthRequest="30"/>
+            <Label Text="Menú"
+                   TextColor="White"
+                   FontSize="Small"
+                   HorizontalOptions="Center"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Agenda.Views.EditarCitaPage"
+             Title="Editar Cita">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
+            <Entry Text="{Binding Nombre}" Placeholder="Nombre"/>
+            <Entry Text="{Binding Servicio}" Placeholder="Servicio"/>
+            <DatePicker Date="{Binding Dia}"/>
+            <TimePicker Time="{Binding Hora}"/>
+            <CheckBox IsChecked="{Binding Completada}" 
+                      HorizontalOptions="Start"/>
+
+            <Button Text="Guardar" Clicked="OnGuardarClicked"/>
+            <Button Text="Cancelar" Clicked="OnCancelarClicked"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Agenda.Views.AddProductoPage"
+             Title="Agregar Producto">
+
+    <Grid RowDefinitions="0.1*, 0.8*, 0.1*"
+          ColumnDefinitions="*,*,*,*">
+
+        <!-- Encabezado -->
+        <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Color="#6A0DAD"/>
+        <Image Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+               Source="logo.png"
+               Aspect="AspectFit"
+               HeightRequest="80"
+               WidthRequest="80"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+
+        <!-- Formulario -->
+        <ScrollView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4">
+            <StackLayout Padding="20" Spacing="15">
+
+                <Entry Text="{Binding Nombre}" Placeholder="Nombre del producto"/>
+                <Entry Text="{Binding Marca}" Placeholder="Marca"/>
+                <Entry Text="{Binding CostoString}" Placeholder="Costo" Keyboard="Numeric"/>
+                <Entry Text="{Binding CantidadString}" Placeholder="Cantidad en stock" Keyboard="Numeric"/>
+
+                <Picker Title="Seleccione tipo de producto"
+                        ItemsSource="{Binding TiposProducto}"
+                        SelectedItem="{Binding TipoSeleccionado}"/>
+
+                <Button Text="Guardar Producto"
+                        Command="{Binding GuardarCommand}"
+                        BackgroundColor="#4CAF50"
+                        TextColor="White"/>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Menú inferior -->
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+              ColumnDefinitions="*,*,*,*"
+              BackgroundColor="#6A0DAD">
+
+            <VerticalStackLayout Grid.Column="0" HorizontalOptions="Center">
+                <Image Source="warehouse_white.png" HeightRequest="24"/>
+                <Label Text="Inventario" TextColor="White" FontSize="Small" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="1" HorizontalOptions="Center">
+                <Image Source="shopping_white.png" HeightRequest="24"/>
+                <Label Text="Venta" TextColor="White" FontSize="Small" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="2" HorizontalOptions="Center">
+                <Image Source="plus.png" HeightRequest="24"/>
+                <Label Text="Agregar" TextColor="White" FontSize="Small" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="3" HorizontalOptions="Center">
+                <Image Source="menu.png" HeightRequest="24"/>
+                <Label Text="Menú" TextColor="White" FontSize="Small" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>
